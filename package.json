@@ -5,7 +5,7 @@
     "scripts": {
         "start": "node node_modules/react-native/local-cli/cli.js start",
         "test": "jest",
-        "start:iphone": "react-native run-ios",
+        "start:iphone": "react-native run-ios --simulator='iPhone 6s'",
         "start:android": "emulator -avd  Pixel_2_API_28 & react-native run-android"
     },
     "dependencies": {
