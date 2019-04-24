@@ -28,5 +28,12 @@
     },
     "jest": {
         "preset": "react-native"
+    },
+    "rnpm": {
+        "assets": [
+            "assets/fonts/PT-serif",
+            "assets/fonts/Raleway",
+            "assets/images"
+        ]
     }
 }

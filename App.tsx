@@ -1,18 +1,30 @@
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Platform } from "react-native";
 import Template from "./components/template";
 import WebviewComponent from "./components/webview";
 import { WebView } from "react-native-webview";
+import Navigation from "./components/navigation";
 
 interface Props {}
 class App extends Component<Props> {
     render() {
-        return <WebView source={{ uri: "http://192.168.1.10:3000/" }} />;
+        return (
+            <View style={styles.container}>
+                <Navigation />
+            </View>
+        );
     }
 }
 
 export default App;
 
 const styles = StyleSheet.create({
-    container: {}
+    container: {
+        flex: 1,
+        ...Platform.select({
+            ios: {
+                marginTop: 20
+            }
+        })
+    }
 });
