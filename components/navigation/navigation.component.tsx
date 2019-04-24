@@ -8,6 +8,7 @@ import {
     ImageStyle,
     TextStyle
 } from "react-native";
+import FontStyle from "../../styles/font";
 
 interface INavigationProps {}
 
@@ -36,7 +37,7 @@ export default Navigation;
 interface IStyles {
     navigation: ViewStyle;
     icon: ImageStyle;
-    title: TextStyle;
+    title: TextStyle & ViewStyle;
 }
 
 const styles: IStyles = StyleSheet.create({
@@ -58,6 +59,8 @@ const styles: IStyles = StyleSheet.create({
     title: {
         color: "#fff",
         fontSize: 22,
-        lineHeight: 30
+        lineHeight: 30,
+        padding: 5,
+        ...FontStyle.normal
     }
 });
