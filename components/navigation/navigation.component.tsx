@@ -6,42 +6,60 @@ import {
     Image,
     ViewStyle,
     ImageStyle,
-    TextStyle
+    TextStyle,
+    Platform,
+    TouchableHighlight,
+    Button
 } from "react-native";
 import FontStyle from "../../styles/font";
+import LinkList from "./link-list";
+
+interface INavigationStyles {
+    navigation: ViewStyle;
+    icon: ImageStyle;
+    title: TextStyle & ViewStyle;
+}
 
 interface INavigationProps {}
 
-interface INavigationState {}
+interface INavigationState {
+    showMenu: boolean;
+}
 
 class Navigation extends React.PureComponent<
     INavigationProps,
     INavigationState
 > {
-    state: INavigationState = {};
+    state: INavigationState = {
+        showMenu: false
+    };
 
-    public render() {
+    public toggleMenu = () => {
+        this.setState({ showMenu: !this.state.showMenu });
+    };
+
+    render() {
+        const { showMenu } = this.state;
         return (
-            <View style={styles.navigation}>
-                <Image
-                    style={styles.icon}
-                    source={require("../../assets/images/menu.svg")}
-                />
-                <Text style={styles.title}>IMPACT</Text>
+            <View style={NavStyles.navigation}>
+                <TouchableHighlight onPress={this.toggleMenu}>
+                    <Image
+                        style={NavStyles.icon}
+                        source={require("../../assets/images/menu.png")}
+                    />
+                </TouchableHighlight>
+                <Text style={NavStyles.title}>IMPACT</Text>
+                {showMenu && <LinkList />}
             </View>
         );
     }
 }
 export default Navigation;
 
-interface IStyles {
-    navigation: ViewStyle;
-    icon: ImageStyle;
-    title: TextStyle & ViewStyle;
-}
-
-const styles: IStyles = StyleSheet.create({
+const NavStyles: INavigationStyles = StyleSheet.create({
     navigation: {
+        marginLeft: "auto",
+        marginRight: "auto",
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
@@ -49,18 +67,25 @@ const styles: IStyles = StyleSheet.create({
         paddingTop: 6,
         paddingBottom: 6,
         height: 50,
-        width: "100%",
-        backgroundColor: "#000"
+        width: "90%"
     },
     icon: {
-        width: 20,
-        height: 20
+        marginLeft: 5,
+        height: 16,
+        width: 28.8
     },
     title: {
         color: "#fff",
         fontSize: 22,
         lineHeight: 30,
         padding: 5,
-        ...FontStyle.normal
+        ...Platform.select({
+            ios: {
+                ...FontStyle.normal
+            },
+            android: {
+                ...FontStyle.logo
+            }
+        })
     }
 });
