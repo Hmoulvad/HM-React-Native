@@ -1,9 +1,11 @@
-import { StyleSheet, ViewStyle, View } from "react-native";
+import { StyleSheet, ViewStyle, View, Text, TextStyle } from "react-native";
 import * as React from "react";
 import Link from "./link";
+import FontStyle from "../../../styles/font";
 
 interface IILinkListStyles {
     menu: ViewStyle;
+    exit: ViewStyle & TextStyle;
     links: ViewStyle;
 }
 
@@ -16,6 +18,7 @@ class LinkList extends React.Component<ILinkListProps, ILinkListState> {
         const authorized = false;
         return (
             <View style={LinkListStyles.menu}>
+                <Text style={LinkListStyles.exit}>Luk</Text>
                 {!authorized ? (
                     <View style={LinkListStyles.links}>
                         <Link title={"Home"} url={""} />
@@ -36,23 +39,6 @@ class LinkList extends React.Component<ILinkListProps, ILinkListState> {
 
 export default LinkList;
 
-// const authorizedLinks = () => {
-//     return (
-
-//     );
-// };
-
-// const unauthorizedLinks = () => {
-//     return (
-//         <View style={LinkListStyles.links}>
-//             <Link title={"Home"} url={""} />
-//             <Link title={"Overview"} url={""} />
-//             <Link title={"Holiday Request"} url={""} />
-//             <Link title={"Logout"} url={""} />
-//         </View>
-//     );
-// };
-
 const LinkListStyles: IILinkListStyles = StyleSheet.create({
     menu: {
         position: "absolute",
@@ -62,9 +48,17 @@ const LinkListStyles: IILinkListStyles = StyleSheet.create({
         maxWidth: 180,
         zIndex: 10,
         backgroundColor: "#000",
-        marginLeft: "-6%"
+        marginLeft: "-5.5%"
+    },
+    exit: {
+        padding: 10,
+        color: "#fff",
+        width: "100%",
+        ...FontStyle.normal
     },
     links: {
-        marginTop: 20
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start"
     }
 });

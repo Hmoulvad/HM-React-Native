@@ -76,8 +76,6 @@ const NavStyles: INavigationStyles = StyleSheet.create({
     },
     title: {
         color: "#fff",
-        fontSize: 22,
-        lineHeight: 30,
         padding: 5,
         ...Platform.select({
             ios: {

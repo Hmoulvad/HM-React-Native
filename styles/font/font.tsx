@@ -5,12 +5,16 @@ const FontStyle = StyleSheet.create({
         fontFamily: "PT_Serif-Web-Regular",
         fontWeight: "normal",
         fontStyle: "normal",
-        letterSpacing: 2
+        letterSpacing: 2,
+        fontSize: 22,
+        lineHeight: 30
     },
     normal: {
         fontFamily: "Raleway-Regular",
         fontWeight: "normal",
-        fontStyle: "normal"
+        fontStyle: "normal",
+        lineHeight: 20,
+        fontSize: 15
     }
 });
 
