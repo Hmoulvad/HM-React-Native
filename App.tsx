@@ -35,12 +35,6 @@ class App extends Component<IAppProps, IAppContext> {
         }
     };
     render() {
-        const {
-            isMenuOpen,
-            setMenu,
-            userIsAuthenticated,
-            currentUrl
-        } = this.state;
         return (
             <AppContext.Provider value={this.state}>
                 <ImageBackground
@@ -48,12 +42,9 @@ class App extends Component<IAppProps, IAppContext> {
                     style={appStyles.background}
                 >
                     <View style={appStyles.container}>
-                        <Navigation isMenuOpen={isMenuOpen} setMenu={setMenu} />
+                        <Navigation />
                     </View>
-                    <WebviewComponent
-                        url={currentUrl}
-                        userIsAuthenticated={userIsAuthenticated}
-                    />
+                    <WebviewComponent />
                 </ImageBackground>
             </AppContext.Provider>
         );

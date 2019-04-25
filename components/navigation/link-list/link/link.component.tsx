@@ -1,29 +1,39 @@
 import * as React from "react";
-import { StyleSheet, Text, TextStyle, ViewStyle, View } from "react-native";
+import {
+    StyleSheet,
+    Text,
+    TextStyle,
+    ViewStyle,
+    View,
+    TouchableHighlight
+} from "react-native";
 import FontStyle from "../../../../styles/font";
+import { AppContext } from "../../../../context/appContext";
 
 interface ILinkProps {
     title: string;
     url: string;
 }
 
-interface ILinkState {}
-
 interface ILinkStyles {
     link: TextStyle;
     linkWrapper: ViewStyle;
 }
 
-class Link extends React.Component<ILinkProps, ILinkState> {
-    render() {
-        const { title, url } = this.props;
-        return (
-            <View style={LinkStyles.linkWrapper}>
+const Link: React.FC<ILinkProps> = ({ title, url }) => {
+    const { setCurrentUrl } = React.useContext(AppContext);
+    const toggleLink = () => {
+        setCurrentUrl(url);
+    };
+
+    return (
+        <View style={LinkStyles.linkWrapper}>
+            <TouchableHighlight onPress={toggleLink}>
                 <Text style={LinkStyles.link}>{title + url}</Text>
-            </View>
-        );
-    }
-}
+            </TouchableHighlight>
+        </View>
+    );
+};
 
 const LinkStyles: ILinkStyles = StyleSheet.create({
     link: {

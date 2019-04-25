@@ -9,6 +9,7 @@ import {
 import * as React from "react";
 import Link from "./link";
 import FontStyle from "../../../styles/font";
+import { AppContext } from "../../../context/appContext";
 
 interface IILinkListStyles {
     menu: ViewStyle;
@@ -16,41 +17,36 @@ interface IILinkListStyles {
     links: ViewStyle;
 }
 
-interface ILinkListProps {
-    isMenuOpen: boolean;
-    setMenu: (open: boolean) => void;
-}
+interface ILinkListProps {}
 
-interface ILinkListState {}
-
-class LinkList extends React.Component<ILinkListProps, ILinkListState> {
-    toggleMenu = () => {
-        this.props.setMenu(!this.props.isMenuOpen);
+const LinkList: React.FC<ILinkListProps> = (props: ILinkListProps) => {
+    const { setMenu, isMenuOpen, userIsAuthenticated } = React.useContext(
+        AppContext
+    );
+    const toggleMenu = () => {
+        setMenu(!isMenuOpen);
     };
-    render() {
-        const authorized = false;
-        return (
-            <View style={LinkListStyles.menu}>
-                <TouchableHighlight onPress={this.toggleMenu}>
-                    <Text style={LinkListStyles.exit}>Luk</Text>
-                </TouchableHighlight>
-                {!authorized ? (
-                    <View style={LinkListStyles.links}>
-                        <Link title={"Home"} url={""} />
-                        <Link title={"Login"} url={""} />
-                    </View>
-                ) : (
-                    <View style={LinkListStyles.links}>
-                        <Link title={"Home"} url={""} />
-                        <Link title={"Overview"} url={""} />
-                        <Link title={"Holiday Request"} url={""} />
-                        <Link title={"Logout"} url={""} />
-                    </View>
-                )}
-            </View>
-        );
-    }
-}
+    return (
+        <View style={LinkListStyles.menu}>
+            <TouchableHighlight onPress={toggleMenu}>
+                <Text style={LinkListStyles.exit}>Luk</Text>
+            </TouchableHighlight>
+            {!userIsAuthenticated ? (
+                <View style={LinkListStyles.links}>
+                    <Link title={"Home"} url={""} />
+                    <Link title={"Login"} url={""} />
+                </View>
+            ) : (
+                <View style={LinkListStyles.links}>
+                    <Link title={"Home"} url={""} />
+                    <Link title={"Overview"} url={""} />
+                    <Link title={"Holiday Request"} url={""} />
+                    <Link title={"Logout"} url={""} />
+                </View>
+            )}
+        </View>
+    );
+};
 
 export default LinkList;
 

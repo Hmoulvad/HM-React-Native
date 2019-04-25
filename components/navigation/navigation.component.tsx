@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import FontStyle from "../../styles/font";
 import LinkList from "./link-list";
+import { AppContext } from "../../context/appContext";
 
 interface INavigationStyles {
     navigation: ViewStyle;
@@ -20,31 +21,26 @@ interface INavigationStyles {
     title: TextStyle & ViewStyle;
 }
 
-interface INavigationProps {
-    isMenuOpen: boolean;
-    setMenu: (open: boolean) => void;
-}
+interface INavigationProps {}
 
-class Navigation extends React.PureComponent<INavigationProps> {
-    toggleMenu = () => {
-        this.props.setMenu(!this.props.isMenuOpen);
+const Navigation: React.FC<INavigationProps> = (props: INavigationProps) => {
+    const { setMenu, isMenuOpen } = React.useContext(AppContext);
+    const toggleMenu = () => {
+        setMenu(!isMenuOpen);
     };
-    render() {
-        const { isMenuOpen } = this.props;
-        return (
-            <View style={NavStyles.navigation}>
-                <TouchableHighlight onPress={this.toggleMenu}>
-                    <Image
-                        style={NavStyles.icon}
-                        source={require("../../assets/images/menu.png")}
-                    />
-                </TouchableHighlight>
-                <Text style={NavStyles.title}>IMPACT</Text>
-                {isMenuOpen && <LinkList {...this.props} />}
-            </View>
-        );
-    }
-}
+    return (
+        <View style={NavStyles.navigation}>
+            <TouchableHighlight onPress={toggleMenu}>
+                <Image
+                    style={NavStyles.icon}
+                    source={require("../../assets/images/menu.png")}
+                />
+            </TouchableHighlight>
+            <Text style={NavStyles.title}>IMPACT</Text>
+            {isMenuOpen && <LinkList />}
+        </View>
+    );
+};
 export default Navigation;
 
 const NavStyles: INavigationStyles = StyleSheet.create({
