@@ -1,4 +1,11 @@
-import { StyleSheet, ViewStyle, View, Text, TextStyle } from "react-native";
+import {
+    StyleSheet,
+    ViewStyle,
+    View,
+    Text,
+    TextStyle,
+    TouchableHighlight
+} from "react-native";
 import * as React from "react";
 import Link from "./link";
 import FontStyle from "../../../styles/font";
@@ -9,16 +16,24 @@ interface IILinkListStyles {
     links: ViewStyle;
 }
 
-interface ILinkListProps {}
+interface ILinkListProps {
+    isMenuOpen: boolean;
+    setMenu: (open: boolean) => void;
+}
 
 interface ILinkListState {}
 
 class LinkList extends React.Component<ILinkListProps, ILinkListState> {
-    public render() {
+    toggleMenu = () => {
+        this.props.setMenu(!this.props.isMenuOpen);
+    };
+    render() {
         const authorized = false;
         return (
             <View style={LinkListStyles.menu}>
-                <Text style={LinkListStyles.exit}>Luk</Text>
+                <TouchableHighlight onPress={this.toggleMenu}>
+                    <Text style={LinkListStyles.exit}>Luk</Text>
+                </TouchableHighlight>
                 {!authorized ? (
                     <View style={LinkListStyles.links}>
                         <Link title={"Home"} url={""} />

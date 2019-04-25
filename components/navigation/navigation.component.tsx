@@ -20,26 +20,17 @@ interface INavigationStyles {
     title: TextStyle & ViewStyle;
 }
 
-interface INavigationProps {}
-
-interface INavigationState {
-    showMenu: boolean;
+interface INavigationProps {
+    isMenuOpen: boolean;
+    setMenu: (open: boolean) => void;
 }
 
-class Navigation extends React.PureComponent<
-    INavigationProps,
-    INavigationState
-> {
-    state: INavigationState = {
-        showMenu: false
+class Navigation extends React.PureComponent<INavigationProps> {
+    toggleMenu = () => {
+        this.props.setMenu(!this.props.isMenuOpen);
     };
-
-    public toggleMenu = () => {
-        this.setState({ showMenu: !this.state.showMenu });
-    };
-
     render() {
-        const { showMenu } = this.state;
+        const { isMenuOpen, setMenu } = this.props;
         return (
             <View style={NavStyles.navigation}>
                 <TouchableHighlight onPress={this.toggleMenu}>
@@ -49,7 +40,7 @@ class Navigation extends React.PureComponent<
                     />
                 </TouchableHighlight>
                 <Text style={NavStyles.title}>IMPACT</Text>
-                {showMenu && <LinkList />}
+                {isMenuOpen && <LinkList {...this.props} />}
             </View>
         );
     }
