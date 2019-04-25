@@ -29,7 +29,7 @@ const Link: React.FC<ILinkProps> = ({ title, url }) => {
     return (
         <View style={LinkStyles.linkWrapper}>
             <TouchableHighlight onPress={toggleLink}>
-                <Text style={LinkStyles.link}>{title + url}</Text>
+                <Text style={LinkStyles.link}>{title}</Text>
             </TouchableHighlight>
         </View>
     );

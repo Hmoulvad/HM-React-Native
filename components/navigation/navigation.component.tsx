@@ -8,8 +8,7 @@ import {
     ImageStyle,
     TextStyle,
     Platform,
-    TouchableHighlight,
-    Button
+    TouchableHighlight
 } from "react-native";
 import FontStyle from "../../styles/font";
 import LinkList from "./link-list";

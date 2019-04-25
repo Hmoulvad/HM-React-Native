@@ -34,13 +34,13 @@ const LinkList: React.FC<ILinkListProps> = (props: ILinkListProps) => {
             {!userIsAuthenticated ? (
                 <View style={LinkListStyles.links}>
                     <Link title={"Home"} url={""} />
-                    <Link title={"Login"} url={""} />
+                    <Link title={"Login"} url={"login"} />
                 </View>
             ) : (
                 <View style={LinkListStyles.links}>
                     <Link title={"Home"} url={""} />
-                    <Link title={"Overview"} url={""} />
-                    <Link title={"Holiday Request"} url={""} />
+                    <Link title={"Overview"} url={"login"} />
+                    <Link title={"Holiday Request"} url={"holiday-request"} />
                     <Link title={"Logout"} url={""} />
                 </View>
             )}

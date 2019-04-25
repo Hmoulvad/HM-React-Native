@@ -7,9 +7,7 @@ import {
     ViewStyle,
     ImageStyle
 } from "react-native";
-import Template from "./components/template";
 import WebviewComponent from "./components/webview";
-import { WebView } from "react-native-webview";
 import Navigation from "./components/navigation";
 import { IAppContext, AppContext } from "./context/appContext";
 
@@ -55,6 +53,7 @@ export default App;
 const appStyles: IStylesApp = StyleSheet.create({
     container: {
         position: "relative",
+        zIndex: 10,
         ...Platform.select({
             ios: {
                 marginTop: 20
