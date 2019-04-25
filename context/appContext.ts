@@ -3,6 +3,8 @@ import * as React from "react";
 export interface IAppContext {
     userIsAuthenticated: boolean;
     isMenuOpen: boolean;
+    currentUrl: string;
+    setCurrentUrl: (url: string) => void;
     setMenu: (open: boolean) => void;
     setAuth: (auth: boolean) => void;
 }
@@ -10,6 +12,10 @@ export interface IAppContext {
 export const defaultContext: IAppContext = {
     userIsAuthenticated: false,
     isMenuOpen: false,
+    currentUrl: "*",
+    setCurrentUrl: (url: string) => {
+        defaultContext.currentUrl = url;
+    },
     setMenu: (open: boolean) => {
         defaultContext.isMenuOpen = open;
     },

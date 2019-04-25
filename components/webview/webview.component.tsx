@@ -1,17 +1,41 @@
 import * as React from "react";
 import WebView from "react-native-webview";
+import { ViewStyle, StyleSheet } from "react-native";
 
-interface IWebviewComponentProps {}
+interface IWebviewComponentProps {
+    userIsAuthenticated: boolean;
+    url: string;
+}
 
 interface IWebviewComponentState {}
+
+interface IStylesWebView {
+    webView: ViewStyle;
+}
 
 class WebviewComponent extends React.PureComponent<
     IWebviewComponentProps,
     IWebviewComponentState
 > {
     public render() {
-        return <WebView source={{ uri: "http://192.168.1.10:3000/" }} />;
+        const { userIsAuthenticated, url } = this.props;
+        const prefixUrl = "http://10.158.121.115:3000/";
+        const app = "?app=true";
+        return (
+            <WebView
+                style={WebViewStyles.webView}
+                source={{
+                    uri: prefixUrl + url + app
+                }}
+            />
+        );
     }
 }
 
 export default WebviewComponent;
+
+const WebViewStyles: IStylesWebView = StyleSheet.create({
+    webView: {
+        zIndex: 5
+    }
+});

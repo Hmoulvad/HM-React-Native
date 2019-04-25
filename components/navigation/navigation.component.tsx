@@ -30,7 +30,7 @@ class Navigation extends React.PureComponent<INavigationProps> {
         this.props.setMenu(!this.props.isMenuOpen);
     };
     render() {
-        const { isMenuOpen, setMenu } = this.props;
+        const { isMenuOpen } = this.props;
         return (
             <View style={NavStyles.navigation}>
                 <TouchableHighlight onPress={this.toggleMenu}>

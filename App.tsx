@@ -23,6 +23,10 @@ class App extends Component<IAppProps, IAppContext> {
     state: IAppContext = {
         userIsAuthenticated: false,
         isMenuOpen: false,
+        currentUrl: "*",
+        setCurrentUrl: (url: string) => {
+            this.setState({ currentUrl: url });
+        },
         setMenu: (open: boolean) => {
             this.setState({ isMenuOpen: open });
         },
@@ -31,7 +35,12 @@ class App extends Component<IAppProps, IAppContext> {
         }
     };
     render() {
-        const { isMenuOpen, setMenu } = this.state;
+        const {
+            isMenuOpen,
+            setMenu,
+            userIsAuthenticated,
+            currentUrl
+        } = this.state;
         return (
             <AppContext.Provider value={this.state}>
                 <ImageBackground
@@ -41,6 +50,10 @@ class App extends Component<IAppProps, IAppContext> {
                     <View style={appStyles.container}>
                         <Navigation isMenuOpen={isMenuOpen} setMenu={setMenu} />
                     </View>
+                    <WebviewComponent
+                        url={currentUrl}
+                        userIsAuthenticated={userIsAuthenticated}
+                    />
                 </ImageBackground>
             </AppContext.Provider>
         );
@@ -50,7 +63,6 @@ class App extends Component<IAppProps, IAppContext> {
 export default App;
 const appStyles: IStylesApp = StyleSheet.create({
     container: {
-        flex: 1,
         position: "relative",
         ...Platform.select({
             ios: {
