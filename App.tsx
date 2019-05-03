@@ -21,7 +21,7 @@ class App extends Component<IAppProps, IAppContext> {
     state: IAppContext = {
         userIsAuthenticated: false,
         isMenuOpen: false,
-        currentUrl: "*",
+        currentUrl: "",
         setCurrentUrl: (url: string) => {
             this.setState({ currentUrl: url });
         },

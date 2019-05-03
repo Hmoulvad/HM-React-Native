@@ -12,7 +12,7 @@ export interface IAppContext {
 export const defaultContext: IAppContext = {
     userIsAuthenticated: false,
     isMenuOpen: false,
-    currentUrl: "*",
+    currentUrl: "",
     setCurrentUrl: (url: string) => {
         defaultContext.currentUrl = url;
     },
