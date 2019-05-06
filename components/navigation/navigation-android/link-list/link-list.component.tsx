@@ -48,21 +48,18 @@ const LinkListStyles: IILinkListStyles = StyleSheet.create({
         position: "relative",
         width: "65%",
         maxWidth: 200,
+        height: "auto",
         backgroundColor: "#000",
-        borderRadius: 5,
-        flex: 0.5
+        borderRadius: 5
     },
     exit: {
         color: "#fff",
         width: "100%",
+        height: 24,
         ...FontStyle.normal
     },
     links: {
-        display: "flex",
-        width: "100%",
-        flex: 1,
-        position: "relative",
-        flexDirection: "column",
+        flexDirection: "row",
         alignItems: "flex-start"
     }
 });

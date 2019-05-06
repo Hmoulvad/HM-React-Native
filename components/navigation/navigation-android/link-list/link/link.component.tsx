@@ -43,7 +43,6 @@ const Link: React.FC<ILinkProps> = ({ title, url, internalLink = false }) => {
                 borderBottomWidth: 2,
                 borderBottomColor: "#feff00"
             }),
-            position: "relative",
             marginTop: 10,
             marginBottom: 10,
             marginLeft: 10,
