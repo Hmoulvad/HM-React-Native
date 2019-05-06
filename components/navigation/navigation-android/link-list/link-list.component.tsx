@@ -46,8 +46,6 @@ const LinkListStyles: IILinkListStyles = StyleSheet.create({
     menu: {
         padding: 10,
         position: "relative",
-        width: "65%",
-        maxWidth: 200,
         height: "auto",
         backgroundColor: "#000",
         borderRadius: 5
@@ -60,6 +58,7 @@ const LinkListStyles: IILinkListStyles = StyleSheet.create({
     },
     links: {
         flexDirection: "row",
+        flexWrap: "wrap",
         alignItems: "flex-start"
     }
 });

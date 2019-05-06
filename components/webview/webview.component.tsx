@@ -14,17 +14,13 @@ const WebviewComponent: React.FC<IWebviewComponentProps> = () => {
     const { currentUrl, token } = React.useContext(AppContext);
     const prefixUrl = "http://192.168.0.2:3000";
     const app = "?app=true";
-    const route = prefixUrl + currentUrl + app;
-
-    const sendMessageToWebview = () => {
-        webViewRef!.current!.postMessage(token);
-    };
+    const tokenParam = token ? `&token=${token}` : "";
+    const route = prefixUrl + currentUrl + app + tokenParam;
 
     return (
         <WebView
             ref={webViewRef}
             style={WebViewStyles.webView}
-            onNavigationStateChange={sendMessageToWebview}
             useWebKit={true}
             source={{
                 uri: route
