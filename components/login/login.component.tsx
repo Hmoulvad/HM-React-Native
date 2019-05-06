@@ -49,8 +49,8 @@ const Login: React.FC<ILoginProps> = props => {
                                 placeholder={"Password"}
                                 onChangeText={text => setPassword(text)}
                             />
-                            <Text
-                                style={LoginStyles.button}
+                            <Button
+                                title={"Login"}
                                 onPress={() => {
                                     login({
                                         variables: {
@@ -69,9 +69,7 @@ const Login: React.FC<ILoginProps> = props => {
                                             Alert.alert(e.message);
                                         });
                                 }}
-                            >
-                                Login
-                            </Text>
+                            />
                         </View>
                     </View>
                 </View>
@@ -86,13 +84,12 @@ interface ILoginStyle {
     inputFields: TextStyle;
     header: TextStyle;
     formContainer: ViewStyle;
-    button: ViewStyle;
 }
 
 const LoginStyles: ILoginStyle = StyleSheet.create({
     login: {
         position: "relative",
-        marginTop: 0,
+        marginTop: 50,
         marginBottom: 0,
         marginRight: "auto",
         marginLeft: "auto",
@@ -127,16 +124,6 @@ const LoginStyles: ILoginStyle = StyleSheet.create({
     formContainer: {
         padding: 10,
         position: "relative"
-    },
-    button: {
-        position: "relative",
-        borderRadius: 5,
-        borderWidth: 1,
-        width: "auto",
-        padding: 4,
-        margin: 0,
-        alignItems: "flex-start",
-        textAlign: "center"
     }
 });
 
