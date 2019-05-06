@@ -1,27 +1,40 @@
 import React, { Component } from "react";
 import {
     StyleSheet,
-    View,
     Platform,
     ImageBackground,
-    ViewStyle,
     ImageStyle
 } from "react-native";
 import WebviewComponent from "./components/webview";
-import Navigation from "./components/navigation";
+import NavIOS from "./components/navigation/navigation-IOS";
+import NavAndroid from "./components/navigation/navigation-android";
 import { IAppContext, AppContext } from "./context/appContext";
+import { ApolloProvider } from "react-apollo";
+import Client from "./apolloClient";
+import Login from "./components/login";
 
 interface IAppProps {}
 
 interface IStylesApp {
-    container: ViewStyle;
     background: ImageStyle;
 }
 class App extends Component<IAppProps, IAppContext> {
     state: IAppContext = {
-        userIsAuthenticated: false,
+        isAuth: false,
         isMenuOpen: false,
         currentUrl: "",
+        showLogin: false,
+        token: "",
+        activeLink: "Home",
+        setActiveLink: (link: string) => {
+            this.setState({ activeLink: link });
+        },
+        setToken: (token: string) => {
+            this.setState({ token });
+        },
+        setShowLogin: (show: boolean) => {
+            this.setState({ showLogin: show });
+        },
         setCurrentUrl: (url: string) => {
             this.setState({ currentUrl: url });
         },
@@ -29,37 +42,35 @@ class App extends Component<IAppProps, IAppContext> {
             this.setState({ isMenuOpen: open });
         },
         setAuth: (auth: boolean) => {
-            this.setState({ userIsAuthenticated: auth });
+            this.setState({ isAuth: auth });
         }
     };
     render() {
         return (
-            <AppContext.Provider value={this.state}>
-                <ImageBackground
-                    source={require("./assets/images/background.png")}
-                    style={appStyles.background}
-                >
-                    <View style={appStyles.container}>
-                        <Navigation />
-                    </View>
-                    <WebviewComponent />
-                </ImageBackground>
-            </AppContext.Provider>
+            <ApolloProvider client={Client}>
+                <AppContext.Provider value={this.state}>
+                    <ImageBackground
+                        source={require("./assets/images/background.png")}
+                        style={appStyles.background}
+                    >
+                        {Platform.select({
+                            ios: <NavIOS />,
+                            android: <NavAndroid />
+                        })}
+                        {!this.state.showLogin ? (
+                            <WebviewComponent />
+                        ) : (
+                            <Login />
+                        )}
+                    </ImageBackground>
+                </AppContext.Provider>
+            </ApolloProvider>
         );
     }
 }
 
 export default App;
 const appStyles: IStylesApp = StyleSheet.create({
-    container: {
-        position: "relative",
-        zIndex: 10,
-        ...Platform.select({
-            ios: {
-                marginTop: 20
-            }
-        })
-    },
     background: {
         height: "100%",
         width: "100%"

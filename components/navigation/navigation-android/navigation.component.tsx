@@ -8,11 +8,11 @@ import {
     ImageStyle,
     TextStyle,
     Platform,
-    TouchableHighlight
+    TouchableOpacity
 } from "react-native";
-import FontStyle from "../../styles/font";
+import FontStyle from "../../../styles/font";
 import LinkList from "./link-list";
-import { AppContext } from "../../context/appContext";
+import { AppContext } from "../../../context/appContext";
 
 interface INavigationStyles {
     navigation: ViewStyle;
@@ -28,22 +28,25 @@ const Navigation: React.FC<INavigationProps> = (props: INavigationProps) => {
         setMenu(!isMenuOpen);
     };
     return (
-        <View style={NavStyles.navigation}>
-            <TouchableHighlight onPress={toggleMenu}>
-                <Image
-                    style={NavStyles.icon}
-                    source={require("../../assets/images/menu.png")}
-                />
-            </TouchableHighlight>
-            <Text style={NavStyles.title}>IMPACT</Text>
+        <>
+            <View style={NavStyles.navigation}>
+                <TouchableOpacity onPress={toggleMenu}>
+                    <Image
+                        style={NavStyles.icon}
+                        source={require("../../../assets/images/menu.png")}
+                    />
+                </TouchableOpacity>
+                <Text style={NavStyles.title}>IMPACT</Text>
+            </View>
             {isMenuOpen && <LinkList />}
-        </View>
+        </>
     );
 };
 export default Navigation;
 
 const NavStyles: INavigationStyles = StyleSheet.create({
     navigation: {
+        position: "relative",
         marginLeft: "auto",
         marginRight: "auto",
         display: "flex",
@@ -52,7 +55,6 @@ const NavStyles: INavigationStyles = StyleSheet.create({
         justifyContent: "space-between",
         paddingTop: 6,
         paddingBottom: 6,
-        height: 50,
         width: "90%"
     },
     icon: {
@@ -63,13 +65,8 @@ const NavStyles: INavigationStyles = StyleSheet.create({
     title: {
         color: "#fff",
         padding: 5,
-        ...Platform.select({
-            ios: {
-                ...FontStyle.normal
-            },
-            android: {
-                ...FontStyle.logo
-            }
-        })
+        ...FontStyle.normal,
+        fontSize: 22,
+        letterSpacing: 1.5
     }
 });

@@ -1,18 +1,36 @@
 import * as React from "react";
 
 export interface IAppContext {
-    userIsAuthenticated: boolean;
+    isAuth: boolean;
     isMenuOpen: boolean;
     currentUrl: string;
+    showLogin: boolean;
+    token: string;
+    activeLink: string;
+    setToken: (token: string) => void;
+    setActiveLink: (link: string) => void;
+    setShowLogin: (show: boolean) => void;
     setCurrentUrl: (url: string) => void;
     setMenu: (open: boolean) => void;
     setAuth: (auth: boolean) => void;
 }
 
 export const defaultContext: IAppContext = {
-    userIsAuthenticated: false,
+    isAuth: false,
     isMenuOpen: false,
     currentUrl: "",
+    token: "",
+    showLogin: false,
+    activeLink: "Home",
+    setActiveLink: (link: string) => {
+        defaultContext.activeLink = link;
+    },
+    setToken: (token: string) => {
+        defaultContext.token = token;
+    },
+    setShowLogin: (show: boolean) => {
+        defaultContext.showLogin = show;
+    },
     setCurrentUrl: (url: string) => {
         defaultContext.currentUrl = url;
     },
@@ -20,7 +38,7 @@ export const defaultContext: IAppContext = {
         defaultContext.isMenuOpen = open;
     },
     setAuth: (auth: boolean) => {
-        defaultContext.userIsAuthenticated = auth;
+        defaultContext.isAuth = auth;
     }
 };
 

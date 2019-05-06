@@ -1,14 +1,7 @@
 import * as React from "react";
 import WebView from "react-native-webview";
-import {
-    ViewStyle,
-    StyleSheet,
-    Alert,
-    NativeEventEmitter,
-    NativeSyntheticEvent
-} from "react-native";
+import { ViewStyle, StyleSheet, Platform, Alert, View } from "react-native";
 import { AppContext } from "../../context/appContext";
-import { WebViewEvent } from "react-native-webview/lib/WebViewTypes";
 
 interface IWebviewComponentProps {}
 
@@ -18,12 +11,13 @@ interface IStylesWebView {
 
 const WebviewComponent: React.FC<IWebviewComponentProps> = () => {
     const webViewRef = React.useRef<any>(null);
-    const { currentUrl } = React.useContext(AppContext);
-    const prefixUrl = "http://10.158.121.115:3000/";
+    const { currentUrl, token } = React.useContext(AppContext);
+    const prefixUrl = "http://192.168.0.2:3000";
     const app = "?app=true";
+    const route = prefixUrl + currentUrl + app;
 
     const sendMessageToWebview = () => {
-        webViewRef!.current!.postMessage("");
+        webViewRef!.current!.postMessage(token);
     };
 
     return (
@@ -31,19 +25,9 @@ const WebviewComponent: React.FC<IWebviewComponentProps> = () => {
             ref={webViewRef}
             style={WebViewStyles.webView}
             onNavigationStateChange={sendMessageToWebview}
-            onMessage={event => {
-                console.warn(event.nativeEvent.data);
-                let msg;
-                try {
-                    msg = JSON.parse(event.nativeEvent.data);
-                } catch (err) {
-                    console.warn(err);
-                    return;
-                }
-                console.log(msg);
-            }}
+            useWebKit={true}
             source={{
-                uri: prefixUrl + currentUrl + app
+                uri: route
             }}
         />
     );
@@ -53,6 +37,8 @@ export default WebviewComponent;
 
 const WebViewStyles: IStylesWebView = StyleSheet.create({
     webView: {
-        zIndex: 0
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
     }
 });
