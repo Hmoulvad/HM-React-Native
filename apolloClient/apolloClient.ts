@@ -1,7 +1,7 @@
 import ApolloClient from "apollo-boost";
 
 const client = new ApolloClient({
-    uri: "http://192.168.0.2:4000"
+    uri: "http://10.158.121.115:4000"
 });
 
 export default client;

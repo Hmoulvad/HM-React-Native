@@ -4,6 +4,7 @@ import Link from "./link";
 import FontStyle from "../../../../styles/font";
 import { AppContext } from "../../../../context/appContext";
 import LogoutLink from "./logout";
+import { Role } from "../../../login/login.component";
 
 interface IILinkListStyles {
     menu: ViewStyle;
@@ -14,7 +15,7 @@ interface IILinkListStyles {
 interface ILinkListProps {}
 
 const LinkList: React.FC<ILinkListProps> = (props: ILinkListProps) => {
-    const { setMenu, isMenuOpen, isAuth } = React.useContext(AppContext);
+    const { setMenu, isMenuOpen, isAuth, role } = React.useContext(AppContext);
     const toggleMenu = () => {
         setMenu(!isMenuOpen);
     };
@@ -31,8 +32,11 @@ const LinkList: React.FC<ILinkListProps> = (props: ILinkListProps) => {
             ) : (
                 <View style={LinkListStyles.links}>
                     <Link title={"Home"} url={"/"} />
-                    <Link title={"Overview"} url={"/overview"} />
-                    <Link title={"Holiday Request"} url={"/holidayrequest"} />
+                    <Link title={"My Requests"} url={"/holiday-request"} />
+                    {role !== Role.developer && (
+                        <Link title={"Pending Requests"} url={"/pending"} />
+                    )}
+                    <Link title={"Add Request"} url={"/add-request"} />
                     <LogoutLink title={"Logout"} />
                 </View>
             )}

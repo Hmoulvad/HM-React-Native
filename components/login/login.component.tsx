@@ -14,19 +14,36 @@ import gql from "graphql-tag";
 import FontStyle from "../../styles/font";
 import { Mutation } from "react-apollo";
 import { AppContext } from "../../context/appContext";
+import { decodeToken } from "../../apolloClient/helpers/token";
 
 const LOGIN: DocumentNode = gql`
     mutation LogIn($username: String!, $password: String!) {
         login(username: $username, password: $password)
     }
 `;
+export enum Role {
+    unitManager = "Unit Manager",
+    projectManager = "Project Manager",
+    developer = "Developer"
+}
 
-interface ILoginProps {}
+export interface ITokenData {
+    id: string;
+    role: Role;
+    objectRefId: string;
+}
 
-const Login: React.FC<ILoginProps> = props => {
-    const [username, setUsername] = React.useState<string>("hbm@impact.dk");
+export interface IToken {
+    data: ITokenData;
+    exp: number;
+}
+
+const Login: React.FC<any> = props => {
+    const [username, setUsername] = React.useState<string>("jtn@impact.dk");
     const [password, setPassword] = React.useState<string>("1234");
-    const { setToken, setShowLogin, setAuth } = React.useContext(AppContext);
+    const { setToken, setShowLogin, setAuth, setRole, role } = React.useContext(
+        AppContext
+    );
 
     return (
         <Mutation mutation={LOGIN}>
@@ -39,7 +56,7 @@ const Login: React.FC<ILoginProps> = props => {
                         <View style={LoginStyles.formContainer}>
                             <TextInput
                                 style={LoginStyles.inputFields}
-                                value="hbm@impact.dk"
+                                value="jpa@impact.dk"
                                 placeholder={"E-mail address"}
                                 onChangeText={text => setUsername(text)}
                             />

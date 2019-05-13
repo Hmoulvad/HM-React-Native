@@ -12,7 +12,7 @@ interface IStylesWebView {
 const WebviewComponent: React.FC<IWebviewComponentProps> = () => {
     const webViewRef = React.useRef<any>(null);
     const { currentUrl, token } = React.useContext(AppContext);
-    const prefixUrl = "http://192.168.0.2:3000";
+    const prefixUrl = "http://10.158.121.115:3000";
     const app = "?app=true";
     const tokenParam = token ? `&token=${token}` : "";
     const route = prefixUrl + currentUrl + app + tokenParam;

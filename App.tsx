@@ -3,7 +3,8 @@ import {
     StyleSheet,
     Platform,
     ImageBackground,
-    ImageStyle
+    ImageStyle,
+    Alert
 } from "react-native";
 import WebviewComponent from "./components/webview";
 import NavIOS from "./components/navigation/navigation-IOS";
@@ -12,6 +13,8 @@ import { IAppContext, AppContext } from "./context/appContext";
 import { ApolloProvider } from "react-apollo";
 import Client from "./apolloClient";
 import Login from "./components/login";
+import { decodeToken } from "./apolloClient/helpers/token";
+import { ITokenData } from "./components/login/login.component";
 
 interface IAppProps {}
 
@@ -24,8 +27,12 @@ class App extends Component<IAppProps, IAppContext> {
         isMenuOpen: false,
         currentUrl: "",
         showLogin: false,
-        token: "",
+        role: undefined,
+        token: undefined,
         activeLink: "Home",
+        setRole: (role: string) => {
+            this.setState({ role });
+        },
         setActiveLink: (link: string) => {
             this.setState({ activeLink: link });
         },
@@ -45,6 +52,14 @@ class App extends Component<IAppProps, IAppContext> {
             this.setState({ isAuth: auth });
         }
     };
+
+    async componentDidUpdate() {
+        if (this.state.token !== undefined && this.state.role === undefined) {
+            const role = await decodeToken(this.state.token);
+            this.setState({ role: role!.role });
+        }
+    }
+
     render() {
         return (
             <ApolloProvider client={Client}>

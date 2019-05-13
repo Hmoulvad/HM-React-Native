@@ -5,8 +5,10 @@ export interface IAppContext {
     isMenuOpen: boolean;
     currentUrl: string;
     showLogin: boolean;
-    token: string;
+    token: string | undefined;
+    role: string | undefined;
     activeLink: string;
+    setRole: (role: string) => void;
     setToken: (token: string) => void;
     setActiveLink: (link: string) => void;
     setShowLogin: (show: boolean) => void;
@@ -19,9 +21,13 @@ export const defaultContext: IAppContext = {
     isAuth: false,
     isMenuOpen: false,
     currentUrl: "",
-    token: "",
+    role: undefined,
+    token: undefined,
     showLogin: false,
     activeLink: "Home",
+    setRole: (role: string) => {
+        defaultContext.role = role;
+    },
     setActiveLink: (link: string) => {
         defaultContext.activeLink = link;
     },
