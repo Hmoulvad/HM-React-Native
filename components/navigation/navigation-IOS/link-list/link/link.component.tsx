@@ -41,7 +41,7 @@ const Link: React.FC<ILinkProps> = ({ title, url, internalLink = false }) => {
         linkWrapper: {
             ...(activeLink === title && {
                 borderBottomWidth: 2,
-                borderBottomColor: "#feff00"
+                borderBottomColor: "#4a90e2"
             }),
             position: "relative",
             marginTop: 10,

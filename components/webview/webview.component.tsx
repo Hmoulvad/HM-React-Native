@@ -1,6 +1,6 @@
 import * as React from "react";
 import WebView from "react-native-webview";
-import { ViewStyle, StyleSheet, Platform, Alert, View } from "react-native";
+import { ViewStyle, StyleSheet } from "react-native";
 import { AppContext } from "../../context/appContext";
 
 interface IWebviewComponentProps {}
@@ -12,7 +12,7 @@ interface IStylesWebView {
 const WebviewComponent: React.FC<IWebviewComponentProps> = () => {
     const webViewRef = React.useRef<any>(null);
     const { currentUrl, token } = React.useContext(AppContext);
-    const prefixUrl = "http://10.158.121.115:3000";
+    const prefixUrl = "http://172.20.10.4:3000";
     const app = "?app=true";
     const tokenParam = token ? `&token=${token}` : "";
     const route = prefixUrl + currentUrl + app + tokenParam;
