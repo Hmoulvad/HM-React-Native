@@ -12,7 +12,7 @@ interface IStylesWebView {
 const WebviewComponent: React.FC<IWebviewComponentProps> = () => {
     const webViewRef = React.useRef<any>(null);
     const { currentUrl, token } = React.useContext(AppContext);
-    const prefixUrl = "https://impact-hm-web.herokuapp.com/";
+    const prefixUrl = "https://impact-hm-web.herokuapp.com";
     const app = "?app=true";
     const tokenParam = token ? `&token=${token}` : "";
     const route = prefixUrl + currentUrl + app + tokenParam;
