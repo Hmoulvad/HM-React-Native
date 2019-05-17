@@ -7,7 +7,8 @@ import {
     ViewStyle,
     Text,
     Button,
-    Alert
+    Alert,
+    TouchableHighlight
 } from "react-native";
 import { DocumentNode } from "apollo-link";
 import gql from "graphql-tag";
@@ -38,8 +39,8 @@ export interface IToken {
 }
 
 const Login: React.FC<any> = props => {
-    const [username, setUsername] = React.useState<string>("");
-    const [password, setPassword] = React.useState<string>("");
+    const [username, setUsername] = React.useState<string>("jtn@impact.dk");
+    const [password, setPassword] = React.useState<string>("1234");
     const { setToken, setShowLogin, setAuth, setRole, role } = React.useContext(
         AppContext
     );
@@ -56,15 +57,16 @@ const Login: React.FC<any> = props => {
                             <TextInput
                                 style={LoginStyles.inputFields}
                                 placeholder={"E-mail address"}
+                                value={"jtn@impact.dk"}
                                 onChangeText={text => setUsername(text)}
                             />
                             <TextInput
                                 style={LoginStyles.inputFields}
                                 placeholder={"Password"}
+                                value={"1234"}
                                 onChangeText={text => setPassword(text)}
                             />
-                            <Button
-                                title={"Login"}
+                            <TouchableHighlight
                                 onPress={() => {
                                     login({
                                         variables: {
@@ -83,7 +85,13 @@ const Login: React.FC<any> = props => {
                                             Alert.alert(e.message);
                                         });
                                 }}
-                            />
+                            >
+                                <View style={LoginStyles.button}>
+                                    <Text style={LoginStyles.buttonText}>
+                                        Login
+                                    </Text>
+                                </View>
+                            </TouchableHighlight>
                         </View>
                     </View>
                 </View>
@@ -98,6 +106,8 @@ interface ILoginStyle {
     inputFields: TextStyle;
     header: TextStyle;
     formContainer: ViewStyle;
+    button: ViewStyle;
+    buttonText: TextStyle;
 }
 
 const LoginStyles: ILoginStyle = StyleSheet.create({
@@ -138,6 +148,23 @@ const LoginStyles: ILoginStyle = StyleSheet.create({
     formContainer: {
         padding: 10,
         position: "relative"
+    },
+    button: {
+        width: "100%",
+        backgroundColor: "#4a90e2",
+        borderRadius: 5,
+        paddingTop: 7,
+        paddingBottom: 7,
+        paddingLeft: 20,
+        paddingRight: 20
+    },
+    buttonText: {
+        color: "white",
+        marginTop: 0,
+        marginBottom: 0,
+        marginLeft: "auto",
+        marginRight: "auto",
+        textAlign: "center"
     }
 });
 
